@@ -9,7 +9,7 @@ edu <- tribble(
 
 research <- tribble(
   ~title, ~unit, ~startMonth, ~startYear, ~endMonth, ~endYear, ~where, ~detail,
-  "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Supervisors: Chris Marine, PhD. & Joanna Pozniak, PhD.",
+  "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Supervisors: Chris Marine, PhD. and Joanna Pozniak, PhD.",
   "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Analyzed the perivascular niche in melanoma using Molecular Cartography spatial transcriptomics data.",
   "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Designed pipelines for transcript assignment, quality assessment, and robust cell-type annotation.",
   "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Built spatial neighbor graphs and co-occurrence models to study cell–cell interactions.",
@@ -21,7 +21,7 @@ research <- tribble(
   "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Quantified volumetric and surface changes in melanoma cell lines under Palbociclib treatment.",
   "Research Intern", "Laboratory of Molecular Cancer Biology, Center for Cancer Biology, VIB - KU Leuven", "August", 2024, "June", 2025, "Leuven, Belgium", "Applied vector-based models to characterize magnitude and direction of cellular responses.",
   
-  "Research Intern", "Cancer Genomics and Bioinformatics Lab, International Laboratory for Human Genome Research (LIIGH -UNAM)", "May", 2022, "July", 2024, "Juriquilla, Qro, MX", "Supervisors: Carla Daniela Robles Espinoza, PhD. & Martha Estefanía Vázquez Cruz, PhD.",
+  "Research Intern", "Cancer Genomics and Bioinformatics Lab, International Laboratory for Human Genome Research (LIIGH -UNAM)", "May", 2022, "July", 2024, "Juriquilla, Qro, MX", "Supervisors: Carla Daniela Robles Espinoza, PhD. and Martha Estefanía Vázquez Cruz, PhD.",
   "Research Intern", "Cancer Genomics and Bioinformatics Lab, International Laboratory for Human Genome Research (LIIGH -UNAM)", "May", 2022, "July", 2024, "Juriquilla, Qro, MX", "Analyzed spatial proteomics data from acral lentiginous melanoma patient samples using GeoMx Digital Spatial Profiler (35 protein markers).",
   "Research Intern", "Cancer Genomics and Bioinformatics Lab, International Laboratory for Human Genome Research (LIIGH -UNAM)", "May", 2022, "July", 2024, "Juriquilla, Qro, MX", "Developed and benchmarked machine learning models (Random Forest, Logistic Regression) to predict ulceration status from tumor and TME regions.",
   "Research Intern", "Cancer Genomics and Bioinformatics Lab, International Laboratory for Human Genome Research (LIIGH -UNAM)", "May", 2022, "July", 2024, "Juriquilla, Qro, MX", "Applied advanced preprocessing and cross-validation strategies, achieving high predictive accuracy (PR-AUC ≈ 0.98 in TME samples).",
@@ -81,7 +81,7 @@ awards <- tribble(
 courses <- tribble(
   ~area, ~accomplishment, ~month, ~year, ~where, ~detail,
   "Hands-on introduction to targeted spatial transcriptomics data analysis", "VIB Training", "December", 2024, "Leuven, Belgium", NA,
-  "Machine Learning & Deep Learning Workshop", "VIB Training", "November", 2024, "Ghent, Belgium", NA,
+  "Machine Learning and Deep Learning Workshop", "VIB Training", "November", 2024, "Ghent, Belgium", NA,
   "Nextflow for reproducible and automated data analysis", "VIB Training", "November", 2024, "Leuven, Belgium", NA,
   "Introduction to NGS analysis", "VIB Training", "October", 2024, "Leuven, Belgium", NA,
   "Docker and Apptainer (Singularity) for reproducible and automated data analysis", "VIB Training", "October", 2024, "Leuven, Belgium", NA,
@@ -91,7 +91,7 @@ skills <- tribble(
   ~area, ~skills,
   "Programming Languages", "R, Python, Bash, SQL, MATLAB, Git",
   "Bioinformatic skills", "GitHub, High Performance Computing (HPC), Conda, Docker, Nextflow, RMarkdown, Quarto, Jupyter Notebooks",
-  "Data Analysis & Visualization", "tidyverse, ggplot2, plotly, seaborn, matplotlib, pandas, numpy",
+  "Data Analysis and Visualization", "tidyverse, ggplot2, plotly, seaborn, matplotlib, pandas, numpy",
   "Omics data types", "Bulk RNA-seq, Single-cell RNA-seq, Spatial Transcriptomics, Proteomics, Genome Wide Association Studies (GWAS), Next-Generation Sequencing (NGS)",
   "Laboratory skills", "DNA/RNA extraction and quantification, Mammalian cell culture, Bacterial transformation, plasmid prep, lipofectamine transfection, Functional assays",
   "Languages", "Spanish (native), English (proficient)",

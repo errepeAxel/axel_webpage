@@ -3,6 +3,7 @@ name: Axel
 surname: Rodríguez-Pérez
 position: "BSc in Genomic Sciences"
 email: "axelrdz5205@gmail.com"
+www: "axelrp.netlify.app"
 github: errepeAxel
 orcid: 0009-0007-9785-2937
 date: "`r format(Sys.time(), '%B %Y')`"
@@ -129,7 +130,7 @@ Supervisors: [Carla Daniela Robles Espinoza](https://orcid.org/0000-0003-3277-74
 
 1.  Vazquez-Cruz, M. E., Basurto-Lozada, P., Molina-Aguilar, C., Orozco-Ruiz, S., Van Haastrecht, B., Simonin-Wilmer, I., Martinez-Said, H., Alvarez-Cano, A., Garcia-Ortega, D. Y., Hidalgo-Miranda, A., Hinojosa-Ugarte, D., Ferreira, I., Tavares-De-La-Paz, L. A., Olguin, J. E., Salinas, I., **Rodriguez-Perez, A.**, Martinez-Gomez, J. M., Van Der Zee, I., Grimes, D. R., . . . Robles-Espinoza, C. D. (2025). The microenvironment of ulcerated acral melanoma is characterised by an inflammatory milieu and an enhanced humoral immune response. *medRxiv (Cold Spring Harbor Laboratory)*. <https://doi.org/10.1101/2025.05.05.25325616>
 
-# Presentations and Talks
+# Presentations & Talks
 
 ```{r PRESENTATIONS}
 presentations %>%
@@ -194,7 +195,7 @@ teaching %>%
 #   ) 
 ```
 
-# Achievements and Funding
+# Achievements & Funding
 
 ```{r AWARDS}
 # awards %>%
@@ -229,7 +230,7 @@ courses %>%
 
 ```
 
-# Technical Skills and Interests
+# Technical Skills & Interests
 
 ```{r SKILLS}
 
