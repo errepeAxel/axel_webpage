@@ -22,6 +22,7 @@ This repository contains the source files for a personal website built with [Qua
 - `blog/` – directory containing blog posts.
 - `projects/` – project descriptions and images.
 - `_site/` – rendered output (generated).
+- `cv/` – directory containing CV files.
 
 ## License
 This project is released under the MIT License.
