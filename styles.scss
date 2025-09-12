@@ -1,0 +1,72 @@
+/*-- scss:defaults --*/
+
+// Sass Variables
+// https://quarto.org/docs/output-formats/html-themes.html#sass-variables
+
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,300;0,400;0,500;1,600&display=swap');
+
+
+$color-bg: #FEFAF6;
+$color-text: #1E293B;
+$color-primary: #2A9D8F;
+$color-link: #E76F51;
+$color-highlight: #F4A261;
+
+
+/* Colors */
+$body-bg: $color-bg;
+$body-color: $color-text;
+$link-color: $color-link;
+
+/* Fonts */
+$font-family-sans-serif: "Poppins", sans-serif;
+$font-size-root: 17px;
+
+ /*-- scss:rules --*/
+
+h1, h2, h3, h4, h5, h6 {
+  color: $color-primary;
+}
+
+.navbar * {
+  color: $color-primary;
+}
+
+span.navbar-title {
+  color: $color-primary;
+  transition-duration: 0.6s;
+  &:hover {
+      color: lighten($color-primary, 20%);
+      transition-duration: 0.6s;
+    }
+  }
+
+a {
+  &:hover {
+    color: lighten($link-color, 20%);
+  }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 0.15em solid $color-primary;
+  white-space: nowrap;
+  letter-spacing: 0.15em;
+  animation: blink-caret 0.75s step-end infinite;
+  text-align: center;
+  align-self: center;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 16ch }
+
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: $color-primary; }
+}

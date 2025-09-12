@@ -1,0 +1,167 @@
+---
+title: "Axel Rodríguez-Pérez"
+subtitle: '<span class="typewriter" aria-live="polite">Bioinformatics Enthusiast</span>'
+image: profile-pic-3.png
+about: 
+  template: jolla # Uses the "jolla" template style from Quarto
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/errepeAxel
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/axel-rodr%C3%ADguez-p%C3%A9rez-035921204/
+    - icon: twitter-x
+      text: Twitter
+      href: https://x.com/AxelRdzP
+    - icon: envelope-at
+      text: Email
+      href: mailto:axelrdz5205@gmail.com
+    - icon: bi-bluesky
+      text: Bluesky
+      href: https://bsky.app/profile/axelrdzp.bsky.social
+    - icon: globe
+      text: ORCiD
+      href: https://orcid.org/0009-0007-9785-2937
+---
+
+Hi! 👋
+
+I'm a bioinformatics & melanoma 🧬 researcher currently interning at the [Laboratory for Molecular Cancer Biology \@ VIB-CCB](https://marinelab.sites.vib.be/en) analyzing multi-omics data.
+
+Previously, I graduated from the undergraduate program of Genomic Sciences at the National Autonomous University of Mexico ([LCGEJ-UNAM](https://www.enesjuriquilla.unam.mx/?page_id=4122) 🇲🇽) and I was an intern at [The Cancer Genetics & Bioinformatics Lab \@ LIIGH-UNAM](https://liigh.unam.mx/drobles/index.php/welcome/) developing machine learning models.
+
+I look at cells doing cell things 🦠 and ask a computer 💻 to help me make sense of it. Sometimes I post about that journey in [my blog](blog/).
+
+```{=html}
+<style>
+/* Blinking cursor */
+.typewriter::after {
+  content: "";
+  display: inline-block;  /* Ensures the cursor behaves like a small box inline */
+  margin-left: 2px;   /* Small gap between text and cursor */
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .typewriter::after {
+    animation: none;  /* Disable blinking to reduce visual motion */
+  }
+}
+
+</style>
+
+```
+
+
+```{=html}
+<script>
+/* Wait until the whole page (DOM) is loaded before running the script */
+document.addEventListener('DOMContentLoaded', () => {
+  /* Grab the element that has the "typewriter" class (the span in your subtitle) */
+  const el = document.querySelector('.typewriter');
+  if (!el) return;  // If no such element exists, stop the script
+  
+  /* ----------------------------
+     CONFIGURATION / USER INPUT
+     ---------------------------- */
+  // Look for a data-phrases attribute in the element (optional override)
+  const phrasesAttr = el.getAttribute('data-phrases');
+  // If present, parse it as JSON (e.g., ["X","Y"]); otherwise use these defaults
+  const phrases = phrasesAttr ? JSON.parse(phrasesAttr) : [
+    "Bioinformatics",
+    "Spatial Omics",
+    "Melanoma Biology"
+  ];
+  
+  // Timing values: either read from element attributes or fallback to defaults
+  const TYPE_MS   = Number(el.getAttribute('data-type-speed'))   || 70;  // typing speed
+  const DELETE_MS = Number(el.getAttribute('data-delete-speed')) || 120;  // deleting speed
+  const HOLD_MS   = Number(el.getAttribute('data-hold'))         || 1000; // pause at end of word
+
+  // Internal state
+  let i = 0;             // Index of the current phrase in the array
+  let j = 0;             // Index of the current character in that phrase
+  let isDeleting = false; // Whether we’re currently deleting text
+  let buf = [];          // Buffer that stores the visible characters so far
+  let rafId = null;      // Stores requestAnimationFrame id (to cancel later)
+  let timerId = null;    // Stores setTimeout id (to cancel later)
+  let running = true;     // Whether typing is currently running (paused if tab hidden) 
+  
+  /* ----------------------------
+     ACCESSIBILITY SUPPORT
+     ---------------------------- */
+  // Small helper to update text in the span
+  // Keeping it as plain text ensures screen readers read updates properly
+  function setText(t) { el.textContent = t; }
+
+  // Save CPU when tab is hidden
+  document.addEventListener('visibilitychange', () => {
+    running = (document.visibilityState === 'visible');
+    if (running) scheduleNext(stepDelay());
+  });
+
+  // Respect reduced motion users: show first phrase only
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    setText(phrases[0]);
+    return; // no animation
+  }
+
+  function stepDelay() {
+    return isDeleting ? DELETE_MS : TYPE_MS;
+  }
+
+  /* ----------------------------
+     MAIN LOOP (TYPING EFFECT)
+     ---------------------------- */
+  
+  function tick() {
+    if (!running) return; // pause if hidden
+
+    const full = phrases[i];// Current full phrase we are working on
+    
+    if (!isDeleting) {
+      // --- TYPING FORWARD ---
+      if (j < full.length) {
+        buf.push(full.charAt(j++));  // Add next character
+        setText(buf.join(''));  // Update the text in the element
+        scheduleNext(stepDelay());  // Schedule next step
+      } else {
+        // Hold the full word, then switch to deleting
+        timerId = setTimeout(() => {
+          isDeleting = true;
+          scheduleNext(stepDelay());
+        }, HOLD_MS);
+      }
+    } else {
+      // --- DELETING BACKWARD ---
+      if (j > 0) {
+        buf.pop(); j--;  // Remove one character
+        setText(buf.join(''));  // Update display
+        scheduleNext(stepDelay());  // Schedule next deletion
+      } else {
+        // Move to next phrase
+        isDeleting = false;
+        i = (i + 1) % phrases.length;
+        scheduleNext(stepDelay());
+      }
+    }
+  }
+  // Scheduler
+  function scheduleNext(ms) {
+    clearTimeout(timerId);
+    cancelAnimationFrame(rafId);
+    timerId = setTimeout(() => { rafId = requestAnimationFrame(tick); }, ms);
+  }
+
+  // Start animating (replacing fallback text gradually)
+  buf = [];  // Start with empty buffer
+  j = 0;  // Start at first character
+  setText('');   // Clear any fallback text
+  scheduleNext(stepDelay());  // Begin typing loop
+});
+</script>
+
+```
+

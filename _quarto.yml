@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Axel Rodriguez-Perez"
+  favicon: adn_helix.png
+  open-graph: true # https://quarto.org/docs/websites/website-tools.html#open-graph
+  page-footer: "Made with ❤️ and Quarto"
+  navbar:
+    title: Axel Rodriguez-Perez
+    left:
+      - text: Blog
+        href: blog/index.qmd
+        #icon: pencil
+      - text: CV
+        href: cv/index.qmd
+        #icon: file-earmark-person-fill
+    right:
+      - icon: github
+        href: https://github.com/errepeAxel
+      - icon: linkedin
+        href: https://www.linkedin.com/in/axel-rodr%C3%ADguez-p%C3%A9rez-035921204/
+      - icon: twitter-x
+        href: https://x.com/AxelRdzP
+
+format:
+  html:
+    theme: [cosmo, styles.scss]
+

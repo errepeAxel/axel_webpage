@@ -1,0 +1,243 @@
+---
+name: Axel 
+surname: Rodríguez-Pérez
+position: "BSc in Genomic Sciences"
+email: "axelrdz5205@gmail.com"
+github: errepeAxel
+orcid: 0009-0007-9785-2937
+date: "`r format(Sys.time(), '%B %Y')`"
+headcolor: 990000
+docname: Axel_Rodriguez_Perez_CV
+output: vitae::awesomecv
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+
+require(xfun)
+
+packages <- c('vitae'     # The CV's LaTeX Template
+             ,'tibble'    # Data structure for tribbles
+             ,'magrittr'  # The Pipe %>%
+             ,'here'      # Relative File Paths
+             ,'readr'     # Data Loading
+             ,'glue'      # String Manipulation
+            )
+
+xfun::pkg_attach2(packages, message = FALSE)
+
+source("r/data.R")
+```
+
+# Education
+
+```{r EDUCATION}
+
+edu %>%
+  detailed_entries(
+    with = inst,
+    what = degree,
+    #why = detail,
+    when = glue::glue("{startYear} -- {endYear}",.na = ""),
+    where = where
+  )
+
+```
+
+-   GPA: 3.52/4.0
+-   Relevant Coursework: *Calculus*, *Statististics*, *Linear Algebra*, *Molecular and Cell Biology*, *Statistical Models in Human Genetics*, *Human Genomics in Health and Disease*, *Cancer Genomics*, *Evolutionary Genomics*, *Bioinformatics and Statistics*, *Machine Learning Applications in Genomics*.
+
+# Research Experience
+
+```{r RESEARCH}
+#IGNORE
+# # Leuven Internship
+# research %>%
+#   detailed_entries(
+#     with = title,
+#     what = unit,
+#     #why = detail,
+#     when = glue::glue("{startMonth} {startYear} --> {endMonth} {endYear}",.na = ""),
+#     where = where
+#   )
+```
+
+```{r RESEARCH KUL}
+research %>%
+  dplyr::filter(where == "Leuven, Belgium") %>%
+  detailed_entries(
+    with = title,
+    what = unit,
+    #why = detail,
+    when = glue::glue("{startMonth} {startYear} -- {endMonth} {endYear}",.na = ""),
+    where = where
+  )
+```
+
+Supervisors: [Jean-Christophe Marine](https://orcid.org/0000-0003-2433-9837), PhD. & [Joanna Pozniak](https://orcid.org/0000-0001-5739-1098), PhD.
+
+-   Analyzed the perivascular niche in melanoma using Molecular Cartography spatial transcriptomics data.
+-   Designed pipelines for transcript assignment, quality assessment, and robust cell-type annotation.
+-   Built spatial neighbor graphs and co-occurrence models to study cell–cell interactions.
+-   Contributed to and adapted Python pipelines for processing multiplexed tissue imaging data (NanoNail and CIVO micro-dosing devices)
+-   Implemented automated image preprocessing and segmentation workflows using Cellpose and Dask for large-scale datasets.
+-   Performed spatial analyses and clustering to evaluate treatment responses at single-cell resolution.
+-   Processed and analyzed bulk RNA-seq data from treated melanoma cell lines using HPC workflows.
+-   Identified treatment-specific gene signatures and enriched pathways through differential expression and functional analysis.
+-   Quantified volumetric and surface changes in melanoma cell lines under Palbociclib treatment.
+-   Applied vector-based models to characterize magnitude and direction of cellular responses.
+
+```{r RESEARCH UNAM}
+research %>%
+  dplyr::filter(where == "Juriquilla, Qro, MX") %>%
+  detailed_entries(
+    with = title,
+    what = unit,
+    #why = detail,
+    when = glue::glue("{startMonth} {startYear} -- {endMonth} {endYear}",.na = ""),
+    where = where
+  )
+```
+
+Supervisors: [Carla Daniela Robles Espinoza](https://orcid.org/0000-0003-3277-7466), PhD. & [Martha Estefanía Vázquez Cruz](https://orcid.org/0009-0007-7111-109X), PhD.
+
+-   Analyzed spatial proteomics data from acral lentiginous melanoma patient samples using GeoMx Digital Spatial Profiler (35 protein markers).
+-   Developed and benchmarked machine learning models (Random Forest, Logistic Regression) to predict ulceration status from tumor and TME regions.
+-   Applied advanced preprocessing and cross-validation strategies, achieving high predictive accuracy (PR-AUC ≈ 0.98 in TME samples).
+-   Identified immune-related markers (e.g., CD8, PD-1) as key predictors of ulceration, providing potential clinical insights.
+-   Documented analyses in R and prepared a comprehensive technical report with reproducible workflows.
+-   Gained hands-on training in molecular biology techniques, including nucleic acid extraction, quantification, and agarose gel electrophoresis.
+-   Cultured mammalian cell lines (NIH 3T3, A375 melanoma): thawing, passaging, contamination detection, and cryopreservation.
+-   Performed bacterial transformation, plasmid amplification, and purification with quality control.
+-   Applied functional assays (foci formation, crystal violet staining, scratch, proliferation) to assess oncogenic potential.
+-   Conducted mammalian cell transfection and antibiotic selection; prepared buffers, reagents, and sterile culture media.
+
+# Publications
+
+```{r PUBLICATIONS}
+# IGNORE
+
+# publications %>%
+#   detailed_entries(
+#     with = title,
+#     #what = details,
+#     why = details,
+#   )
+```
+
+1.  Vazquez-Cruz, M. E., Basurto-Lozada, P., Molina-Aguilar, C., Orozco-Ruiz, S., Van Haastrecht, B., Simonin-Wilmer, I., Martinez-Said, H., Alvarez-Cano, A., Garcia-Ortega, D. Y., Hidalgo-Miranda, A., Hinojosa-Ugarte, D., Ferreira, I., Tavares-De-La-Paz, L. A., Olguin, J. E., Salinas, I., **Rodriguez-Perez, A.**, Martinez-Gomez, J. M., Van Der Zee, I., Grimes, D. R., . . . Robles-Espinoza, C. D. (2025). The microenvironment of ulcerated acral melanoma is characterised by an inflammatory milieu and an enhanced humoral immune response. *medRxiv (Cold Spring Harbor Laboratory)*. <https://doi.org/10.1101/2025.05.05.25325616>
+
+# Presentations and Talks
+
+```{r PRESENTATIONS}
+presentations %>%
+  detailed_entries(
+    with = title,
+    what = conference,
+    when = glue::glue("{month} {year}",.na = ""),
+    where = where,
+    #why = detail
+  )
+```
+
+-   Presented research on applying machine learning (Random Forest, Logistic Regression, LASSO) to spatial proteomics data from Mexican acral melanoma patients.
+-   Discussed methodology (data preprocessing, feature selection, PCA, upsampling) and evaluation metrics (PR-AUC).
+-   Highlighted potential clinical applications of computational models in melanoma prognosis.
+
+# Teaching & Mentorship Experience
+
+```{r MENTORSHIP}
+teaching %>%
+  dplyr::filter(accomplishment == "5th Summer School: Introduction to Genomic Sciences, LIIGH-UNAM") %>%
+  detailed_entries(
+    with = area,
+    what = accomplishment,
+    #why = detail,
+    when = glue::glue("{month} {year}",.na = ""),
+    where = where
+  ) 
+
+```
+
+Talk title: _Genes, code, and decisions: lessons on starting a scientific career_.
+
+-   Delivered am interactive talk as part of the “My Science and My Life” series.
+-   Shared personal trajectory and lessons for early-career students, combining genomics, coding, and career decision-making.
+
+```{r TEACHING}
+teaching %>%
+  dplyr::filter(accomplishment == "Undergraduate Program in Genomic Sciences, UNAM") %>%
+  detailed_entries(
+    with = area,
+    what = accomplishment,
+    #why = detail,
+    when = glue::glue("{month} {year}",.na = ""),
+    where = where
+  )
+```
+
+-   Assisted in teaching "*Introduction to Single-Cell and Spatial Transcriptomics*" lecture for third-semester undergraduate students.
+-   Clarified core concepts and addressed student questions to facilitate understanding.
+
+```{r TEACHING_V2}
+#IGNORE
+
+# teaching %>%
+#   detailed_entries(
+#     with = area,
+#     what = accomplishment,
+#     #why = detail,
+#     when = glue::glue("{month} {year}",.na = ""),
+#     where = where
+#   ) 
+```
+
+# Achievements and Funding
+
+```{r AWARDS}
+# awards %>%
+#   detailed_entries(
+#     with = area,
+#     what = accomplishment,
+#     why = detail,
+#     when = year,
+#     where = where
+#   )
+```
+
+- UNAM High Academic Performance Scholarship 2023-2024.
+- UNAM High Academic Performance Scholarship 2022-2023.
+- UNAM High Academic Performance Scholarship 2021-2022.
+- UNAM Financial Support Scholarship 2021.
+
+\pagebreak
+
+# Courses
+
+```{r COURSES}
+
+courses %>%
+  detailed_entries(
+    with = area,
+    what = accomplishment,
+    why = detail,
+    when = glue::glue("{month} {year}",.na = ""),
+    where = where
+  )
+
+```
+
+# Technical Skills and Interests
+
+```{r SKILLS}
+
+skills %>%
+  detailed_entries(
+    with = area,
+    what = skills
+  )
+
+```
+My research interests lie at the intersection of computational biology and cancer genomics, with a particular focus on spatial and single-cell omics. I aim to develop and apply statistical and machine learning approaches to study cellular heterogeneity, tumor–microenvironment interactions, and therapy response. I am also interested in building scalable, reproducible workflows for multi-omics data analysis in high-performance computing environments.
