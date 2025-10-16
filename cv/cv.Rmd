@@ -47,7 +47,6 @@ edu %>%
 
 ```
 
--   GPA: 3.52/4.0
 -   Relevant Coursework: *Calculus*, *Statististics*, *Linear Algebra*, *Molecular and Cell Biology*, *Statistical Models in Human Genetics*, *Human Genomics in Health and Disease*, *Cancer Genomics*, *Evolutionary Genomics*, *Bioinformatics and Statistics*, *Machine Learning Applications in Genomics*.
 
 # Research Experience
