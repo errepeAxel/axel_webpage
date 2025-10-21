@@ -1,7 +1,7 @@
 ---
 title: "Axel Rodríguez-Pérez"
 subtitle: '<span class="typewriter" aria-live="polite">Bioinformatics Enthusiast</span>'
-image: profile-pic-3.png
+image: profile_pic.JPG
 about: 
   template: jolla # Uses the "jolla" template style from Quarto
   links:
