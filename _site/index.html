@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4550b7d9c6e4995afbe3dd3823a0cbb5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-02d9a3f74df0186fa9ebd4d6f54beda9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -140,6 +140,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
   </div>
 </header><main class="content" id="quarto-document-content">
+<canvas id="voronoi-cover" aria-hidden="true"></canvas>
 <p>Hi! 👋</p>
 <p>I’m a bioinformatics &amp; melanoma researcher currently interning at the <a href="https://marinelab.sites.vib.be/en">Laboratory for Molecular Cancer Biology @ VIB-CCB</a> analyzing multi-omics data.</p>
 <p>Previously, I graduated from the undergraduate program of Genomic Sciences at the National Autonomous University of Mexico (<a href="https://www.enesjuriquilla.unam.mx/?page_id=4122">LCGEJ-UNAM</a> 🇲🇽) and I was an intern at <a href="https://liigh.unam.mx/drobles/index.php/welcome/">The Cancer Genetics &amp; Bioinformatics Lab @ LIIGH-UNAM</a> developing machine learning models.</p>
@@ -238,6 +239,332 @@ document.addEventListener('DOMContentLoaded', () => {
   setText('');   // Clear any fallback text
   scheduleNext(stepDelay());  // Begin typing loop
 });
+/* ============================================
+   VORONOI TESSELLATION COVER
+   Organic, bioluminescent cell visualization
+   Using Delaunay triangulation for smooth vector rendering
+   ============================================ */
+(function() {
+  'use strict';
+  const canvas = document.getElementById('voronoi-cover');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  // Ocean color palette
+  const COLORS = [
+    { r: 13, g: 115, b: 119, hex: '#0D7377' },   // Deep teal
+    { r: 20, g: 145, b: 155, hex: '#14919B' },   // Ocean teal
+    { r: 69, g: 182, b: 156, hex: '#45B69C' },   // Soft green
+    { r: 144, g: 224, b: 239, hex: '#90E0EF' }   // Light cyan
+  ];
+  const BG_COLOR = '#F8FAFB';
+  // Configuration
+  const CONFIG = {
+    pointCount: 110,
+    speed: 0.06,
+    cellOpacity: 0.25,
+    edgeOpacity: 0.7,
+    edgeWidth: 1.6
+  };
+  let points = [];
+  let width, height, dpr;
+  let mouseX = -1000, mouseY = -1000;
+  let isMouseOver = false;
+  let needsUpdate = true;
+  let cachedCells = null;
+  let cachedEdges = null;
+  // Delaunay triangulation (Bowyer-Watson algorithm)
+  class Delaunay {
+    constructor(points) {
+      this.points = points;
+      this.triangles = [];
+      this.triangulate();
+    }
+    triangulate() {
+      const pts = this.points;
+      if (pts.length < 3) return;
+      // Create super-triangle
+      const minX = Math.min(...pts.map(p => p.x)) - 1000;
+      const minY = Math.min(...pts.map(p => p.y)) - 1000;
+      const maxX = Math.max(...pts.map(p => p.x)) + 1000;
+      const maxY = Math.max(...pts.map(p => p.y)) + 1000;
+      const superTriangle = [
+        { x: minX - (maxY - minY), y: minY, isSuperVertex: true },
+        { x: maxX + (maxY - minY), y: minY, isSuperVertex: true },
+        { x: (minX + maxX) / 2, y: maxY + (maxX - minX), isSuperVertex: true }
+      ];
+      this.triangles = [superTriangle];
+      // Add points one at a time
+      for (const point of pts) {
+        const badTriangles = [];
+        for (const tri of this.triangles) {
+          if (this.isPointInCircumcircle(point, tri)) {
+            badTriangles.push(tri);
+          }
+        }
+        const polygon = [];
+        for (const tri of badTriangles) {
+          for (let i = 0; i < 3; i++) {
+            const edge = [tri[i], tri[(i + 1) % 3]];
+            let shared = false;
+            for (const other of badTriangles) {
+              if (other === tri) continue;
+              for (let j = 0; j < 3; j++) {
+                if ((other[j] === edge[0] && other[(j + 1) % 3] === edge[1]) ||
+                    (other[j] === edge[1] && other[(j + 1) % 3] === edge[0])) {
+                  shared = true;
+                  break;
+                }
+              }
+              if (shared) break;
+            }
+            if (!shared) polygon.push(edge);
+          }
+        }
+        this.triangles = this.triangles.filter(t => !badTriangles.includes(t));
+        for (const edge of polygon) {
+          this.triangles.push([edge[0], edge[1], point]);
+        }
+      }
+      // Remove triangles with super-triangle vertices
+      this.triangles = this.triangles.filter(tri =>
+        !tri.some(v => v.isSuperVertex)
+      );
+    }
+    isPointInCircumcircle(point, triangle) {
+      const [a, b, c] = triangle;
+      const ax = a.x - point.x, ay = a.y - point.y;
+      const bx = b.x - point.x, by = b.y - point.y;
+      const cx = c.x - point.x, cy = c.y - point.y;
+      const det = (ax * ax + ay * ay) * (bx * cy - cx * by) -
+                  (bx * bx + by * by) * (ax * cy - cx * ay) +
+                  (cx * cx + cy * cy) * (ax * by - bx * ay);
+      // Check orientation
+      const orient = (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x);
+      return orient > 0 ? det > 0 : det < 0;
+    }
+    getVoronoiEdges() {
+      const edges = [];
+      const triangleMap = new Map();
+      // Map edges to triangles
+      for (const tri of this.triangles) {
+        const cc = this.circumcenter(tri);
+        for (let i = 0; i < 3; i++) {
+          const p1 = tri[i], p2 = tri[(i + 1) % 3];
+          const key = this.edgeKey(p1, p2);
+          if (!triangleMap.has(key)) triangleMap.set(key, []);
+          triangleMap.get(key).push({ tri, cc });
+        }
+      }
+      // Create Voronoi edges between adjacent circumcenters
+      for (const [key, tris] of triangleMap) {
+        if (tris.length === 2) {
+          edges.push({
+            x1: tris[0].cc.x, y1: tris[0].cc.y,
+            x2: tris[1].cc.x, y2: tris[1].cc.y
+          });
+        }
+      }
+      return edges;
+    }
+    getVoronoiCells() {
+      const cells = new Map();
+      for (const point of this.points) {
+        cells.set(point, []);
+      }
+      for (const tri of this.triangles) {
+        const cc = this.circumcenter(tri);
+        for (const vertex of tri) {
+          if (cells.has(vertex)) {
+            cells.get(vertex).push(cc);
+          }
+        }
+      }
+      // Sort vertices around each cell center
+      for (const [point, vertices] of cells) {
+        vertices.sort((a, b) => {
+          return Math.atan2(a.y - point.y, a.x - point.x) -
+                 Math.atan2(b.y - point.y, b.x - point.x);
+        });
+      }
+      return cells;
+    }
+    circumcenter(tri) {
+      const [a, b, c] = tri;
+      const d = 2 * (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
+      if (Math.abs(d) < 1e-10) return { x: (a.x + b.x + c.x) / 3, y: (a.y + b.y + c.y) / 3 };
+      const ux = ((a.x * a.x + a.y * a.y) * (b.y - c.y) +
+                  (b.x * b.x + b.y * b.y) * (c.y - a.y) +
+                  (c.x * c.x + c.y * c.y) * (a.y - b.y)) / d;
+      const uy = ((a.x * a.x + a.y * a.y) * (c.x - b.x) +
+                  (b.x * b.x + b.y * b.y) * (a.x - c.x) +
+                  (c.x * c.x + c.y * c.y) * (b.x - a.x)) / d;
+      return { x: ux, y: uy };
+    }
+    edgeKey(p1, p2) {
+      const id1 = p1.id, id2 = p2.id;
+      return id1 < id2 ? `${id1}-${id2}` : `${id2}-${id1}`;
+    }
+  }
+  // Point with organic movement
+  class Point {
+    constructor(x, y, id) {
+      this.x = x;
+      this.y = y;
+      this.id = id;
+      this.originX = x;
+      this.originY = y;
+      this.vx = (Math.random() - 0.5) * CONFIG.speed;
+      this.vy = (Math.random() - 0.5) * CONFIG.speed;
+      this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.phase = Math.random() * Math.PI * 2;
+      this.pulseSpeed = 0.004 + Math.random() * 0.004;
+    }
+    update(time) {
+      const prevX = this.x;
+      const prevY = this.y;
+      // Target position (origin by default)
+      let targetX = this.originX;
+      let targetY = this.originY;
+      if (isMouseOver) {
+        // Calculate distance from mouse
+        const dx = this.x - mouseX;
+        const dy = this.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const pushRadius = 180;
+        if (dist < pushRadius && dist > 0) {
+          // Push away from cursor
+          const force = (pushRadius - dist) / pushRadius;
+          const pushStrength = force * force * 120;
+          targetX = this.x + (dx / dist) * pushStrength;
+          targetY = this.y + (dy / dist) * pushStrength;
+        }
+      }
+      // Smooth interpolation toward target
+      const dx = targetX - this.x;
+      const dy = targetY - this.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      // Only move if distance is significant
+      if (dist > 0.5) {
+        this.x += dx * 0.08;
+        this.y += dy * 0.08;
+      }
+      // Check if point moved enough to need redraw
+      const movedX = Math.abs(this.x - prevX);
+      const movedY = Math.abs(this.y - prevY);
+      if (movedX > 0.5 || movedY > 0.5) {
+        needsUpdate = true;
+      }
+    }
+  }
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    width = window.innerWidth;
+    height = Math.min(window.innerHeight * 1.1, 1000);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+    initPoints();
+    needsUpdate = true;
+  }
+  function initPoints() {
+    points = [];
+    const cols = Math.ceil(Math.sqrt(CONFIG.pointCount * (width / height)));
+    const rows = Math.ceil(CONFIG.pointCount / cols);
+    const cellW = (width + 160) / cols;
+    const cellH = (height + 160) / rows;
+    let id = 0;
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        if (points.length >= CONFIG.pointCount) break;
+        // Moderate jitter for organic but round cells
+        const jitterX = (Math.random() - 0.5) * cellW * 0.55;
+        const jitterY = (Math.random() - 0.5) * cellH * 0.55;
+        const x = -80 + (col + 0.5) * cellW + jitterX;
+        const y = -80 + (row + 0.5) * cellH + jitterY;
+        points.push(new Point(x, y, id++));
+      }
+    }
+  }
+  function draw(time) {
+    // Clear
+    ctx.fillStyle = BG_COLOR;
+    ctx.fillRect(0, 0, width, height);
+    // Compute Voronoi only when needed
+    if (needsUpdate || !cachedCells || !cachedEdges) {
+      const delaunay = new Delaunay(points);
+      cachedCells = delaunay.getVoronoiCells();
+      cachedEdges = delaunay.getVoronoiEdges();
+      needsUpdate = false;
+    }
+    const cells = cachedCells;
+    const edges = cachedEdges;
+    // Draw cells with solid fills and strokes (edges)
+    ctx.lineWidth = CONFIG.edgeWidth;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (const [point, vertices] of cells) {
+      if (vertices.length < 3) continue;
+      ctx.beginPath();
+      ctx.moveTo(vertices[0].x, vertices[0].y);
+      for (let i = 1; i < vertices.length; i++) {
+        ctx.lineTo(vertices[i].x, vertices[i].y);
+      }
+      ctx.closePath();
+      // Solid color fill
+      ctx.fillStyle = `rgba(${point.color.r}, ${point.color.g}, ${point.color.b}, ${CONFIG.cellOpacity})`;
+      ctx.fill();
+      // Draw stroke (edge) on same path - this ensures edges align perfectly with cells
+      const edgeFade = Math.min(
+        1,
+        point.x / 100,
+        (width - point.x) / 100,
+        point.y / 100,
+        (height - point.y) / 150
+      );
+      ctx.strokeStyle = `rgba(${point.color.r}, ${point.color.g}, ${point.color.b}, ${CONFIG.edgeOpacity * Math.max(0, edgeFade)})`;
+      ctx.stroke();
+    }
+    // Bottom fade gradient
+    const fadeGradient = ctx.createLinearGradient(0, height * 0.75, 0, height);
+    fadeGradient.addColorStop(0, 'rgba(248, 250, 251, 0)');
+    fadeGradient.addColorStop(1, 'rgba(248, 250, 251, 1)');
+    ctx.fillStyle = fadeGradient;
+    ctx.fillRect(0, height * 0.75, width, height * 0.25);
+  }
+  function animate(time) {
+    needsUpdate = false;
+    for (const point of points) {
+      point.update(time);
+    }
+    draw(time);
+    requestAnimationFrame(animate);
+  }
+  // Mouse interaction (track on document since canvas is behind content)
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    // Check if mouse is within canvas bounds
+    isMouseOver = mouseY <= height;
+  });
+  document.addEventListener('mouseleave', () => {
+    isMouseOver = false;
+    mouseX = -1000;
+    mouseY = -1000;
+  });
+  window.addEventListener('resize', resize);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      resize();
+      animate(0);
+    });
+  } else {
+    resize();
+    animate(0);
+  }
+})();
 </script>
 
 
