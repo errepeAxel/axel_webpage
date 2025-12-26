@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // If present, parse it as JSON (e.g., ["X","Y"]); otherwise use these defaults
   const phrases = phrasesAttr ? JSON.parse(phrasesAttr) : [
     "Bioinformatics",
-    "Spatial Omics",
+    "Spatial Transcriptomics",
     "Melanoma Biology"
   ];
   
