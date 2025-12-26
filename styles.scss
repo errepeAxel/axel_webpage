@@ -214,12 +214,38 @@ span.navbar-title {
   }
 }
 
+// Title and subtitle card wrapper
+.quarto-about-jolla .quarto-title {
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 2rem;
+
+  // Create card effect around title and subtitle
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 580px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.50);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+    border: 1px solid rgba($color-primary, 0.1);
+    z-index: -1;
+  }
+}
+
 // Title styling
-.quarto-about-jolla .about-heading {
+.quarto-about-jolla .title {
   font-size: 2.75rem;
   font-weight: 700;
   color: $color-primary;
-  margin-top: 1.5rem;
+  margin-top: 0;
   margin-bottom: 0.5rem;
 }
 
@@ -490,7 +516,15 @@ article {
     height: 160px !important;
   }
 
-  .quarto-about-jolla .about-heading {
+  .quarto-about-jolla .quarto-title {
+    padding: 0.3rem 1.25rem;
+
+    &::before {
+      max-width: 90vw;
+    }
+  }
+
+  .quarto-about-jolla .title {
     font-size: 2rem;
   }
 
