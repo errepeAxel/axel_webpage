@@ -27,31 +27,12 @@ about:
 
 Hi! 👋
 
-I'm a bioinformatics & melanoma 🧬 researcher currently interning at the [Laboratory for Molecular Cancer Biology \@ VIB-CCB](https://marinelab.sites.vib.be/en) analyzing multi-omics data.
+I'm a bioinformatics & melanoma researcher currently interning at the [Laboratory for Molecular Cancer Biology \@ VIB-CCB](https://marinelab.sites.vib.be/en) analyzing multi-omics data.
 
 Previously, I graduated from the undergraduate program of Genomic Sciences at the National Autonomous University of Mexico ([LCGEJ-UNAM](https://www.enesjuriquilla.unam.mx/?page_id=4122) 🇲🇽) and I was an intern at [The Cancer Genetics & Bioinformatics Lab \@ LIIGH-UNAM](https://liigh.unam.mx/drobles/index.php/welcome/) developing machine learning models.
 
-I look at cells doing cell things 🦠 and ask a computer 💻 to help me make sense of it. Sometimes I post about that journey in [my blog](blog/).
+I look at cells doing cell things and ask a computer to help me make sense of it. Sometimes I post about that journey in [my blog](blog/).
 
-```{=html}
-<style>
-/* Blinking cursor */
-.typewriter::after {
-  content: "";
-  display: inline-block;  /* Ensures the cursor behaves like a small box inline */
-  margin-left: 2px;   /* Small gap between text and cursor */
-}
-
-/* Respect users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .typewriter::after {
-    animation: none;  /* Disable blinking to reduce visual motion */
-  }
-}
-
-</style>
-
-```
 
 
 ```{=html}

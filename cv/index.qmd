@@ -1,19 +1,6 @@
 ---
 title: Curriculum Vitae
+title-block-banner: true
 ---
-
-```{=html}
-<style>
-  #myid {
-    border: 10px solid rgba(200,0,0,.2);
-    margin: 0;
-  }
-  .myclass {
-    max-width: 100%;
-    width: 600px;
-    height: 600px;
-  }
-</style>
-```
 
 ![](cv.pdf){#myid .myclass}

@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Axel Rodriguez-Perez"
+  title: "Axel Rodríguez-Pérez"
   favicon: adn_helix.png
   open-graph: true # https://quarto.org/docs/websites/website-tools.html#open-graph
   page-footer: "Made with ❤️ and Quarto"
