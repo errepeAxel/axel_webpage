@@ -3,7 +3,10 @@ title: Blog
 listing:
   contents: /
   type: default
+  sort: "date desc"
+  categories: true
+  feed: true
 title-block-banner: true
 ---
 
-Hi there, and thanks for stopping by! This blog is where I share ideas, tools, and resources that I’ve found helpful and that I hope will be useful to you as well. I’d love to hear your thoughts, so feel free to drop your comments and perspectives in the comments section below each post.
+Hi there, and thanks for stopping by! This blog is where I share ideas, tools, and resources that I've found helpful and that I hope will be useful to you as well. I'd love to hear your thoughts, so feel free to drop your comments and perspectives in the comments section below each post.
