@@ -120,7 +120,7 @@ article a,
 // NAVIGATION
 // ============================================
 .navbar {
-  background: rgba($color-bg, 0.85) !important;
+  background: rgba($color-bg, 0.9) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba($color-primary, 0.1);
@@ -178,23 +178,24 @@ span.navbar-title {
 }
 
 // ============================================
+// VORONOI COVER CANVAS
+// ============================================
+#voronoi-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+// ============================================
 // HOMEPAGE / ABOUT SECTION (JOLLA TEMPLATE)
 // ============================================
 .quarto-about-jolla {
   padding: 4rem 0;
-
-  // Subtle gradient background
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60vh;
-    background: linear-gradient(180deg, rgba($color-highlight, 0.15) 0%, transparent 100%);
-    z-index: -1;
-    pointer-events: none;
-  }
+  position: relative;
+  z-index: 1;
 }
 
 // Profile image styling
