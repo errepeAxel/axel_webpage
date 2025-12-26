@@ -97,13 +97,15 @@ a {
 article a,
 .content a {
   position: relative;
+  display: inline;
+  padding-bottom: 2px;
 
   &::after {
     content: '';
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -2px;
+    bottom: 0;
     left: 0;
     background: linear-gradient(90deg, $color-secondary, $color-accent);
     transition: width 0.3s ease;
@@ -269,11 +271,13 @@ span.navbar-title {
   background: white;
   border-radius: $border-radius-lg;
   box-shadow: $shadow-md;
+  overflow: visible;
 
   p {
     color: $color-text;
     font-size: 1.05rem;
     line-height: 1.8;
+    overflow: visible;
   }
 }
 
