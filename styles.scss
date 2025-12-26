@@ -245,11 +245,15 @@ span.navbar-title {
   transition: all 0.3s ease;
 
   &:hover {
-    background: $color-primary;
-    color: white;
-    border-color: $color-primary;
+    background: darken($color-primary, 8%);
+    color: #fff !important;
+    border-color: darken($color-primary, 8%);
     transform: translateY(-2px);
     box-shadow: $shadow-md;
+
+    .bi {
+      color: #fff !important;
+    }
   }
 
   .bi {
