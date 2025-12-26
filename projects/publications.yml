@@ -1,0 +1,20 @@
+# Publications
+# Replace these placeholders with your actual publications
+
+- title: "Example Publication Title"
+  path: https://doi.org/10.1000/example
+  image: images/breno-assis-r3WAWU5Fi5Q-unsplash.jpg
+  description: >
+    Rodriguez-Perez A, et al. (2024). Journal Name.
+    Brief description of the publication and its main findings.
+  categories: [Melanoma, Bioinformatics]
+  date: 2024-01-01
+
+# Add more publications following this format:
+# - title: "Paper Title"
+#   path: https://doi.org/...  # DOI link
+#   image: images/your-image.jpg
+#   description: >
+#     Authors (Year). Journal. Summary of findings.
+#   categories: [Topic1, Topic2]
+#   date: YYYY-MM-DD

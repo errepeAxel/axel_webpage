@@ -1,0 +1,32 @@
+# Research Projects
+# Replace these placeholders with your actual research projects
+
+- title: Multi-omics Analysis Pipeline
+  path: https://github.com/errepeAxel
+  image: images/breno-assis-r3WAWU5Fi5Q-unsplash.jpg
+  description: >
+    Analysis of multi-omics data integrating transcriptomics, proteomics, and
+    spatial data to understand melanoma biology. Developed during internship
+    at VIB-CCB.
+  categories: [Multi-omics, Melanoma, Bioinformatics]
+  date: 2024-01-01
+
+- title: Machine Learning for Cancer Prediction
+  path: https://github.com/errepeAxel
+  image: images/adrien-delforge-CrHG_ZYn1Dw-unsplash.jpg
+  description: >
+    Development of machine learning models for cancer classification and
+    prognosis prediction. Work conducted at The Cancer Genetics &
+    Bioinformatics Lab at LIIGH-UNAM.
+  categories: [Machine Learning, Cancer Biology, Python]
+  date: 2023-06-01
+
+- title: Spatial Omics Visualization
+  path: https://github.com/errepeAxel
+  image: images/anne-nygard-vc-vPgGqAr4-unsplash.jpg
+  description: >
+    Tools and pipelines for visualizing and analyzing spatial transcriptomics
+    data to understand tissue architecture and cellular interactions in
+    melanoma samples.
+  categories: [Spatial Omics, Data Visualization, R]
+  date: 2024-06-01

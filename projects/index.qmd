@@ -1,7 +1,27 @@
 ---
-title: Projects
+title: Portfolio
 listing:
-  contents: projects.yml
-  type: grid
-  max-description-length: 250
+  - id: research
+    contents: research.yml
+    type: grid
+    max-description-length: 250
+  - id: publications
+    contents: publications.yml
+    type: grid
+    max-description-length: 250
+draft: true
 ---
+
+::: {.panel-tabset}
+
+## Research Projects
+
+:::{#research}
+:::
+
+## Publications
+
+:::{#publications}
+:::
+
+:::

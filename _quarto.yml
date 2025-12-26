@@ -11,7 +11,8 @@ website:
     left:
       - text: Blog
         href: blog/index.qmd
-        #icon: pencil
+      - text: Portfolio
+        href: projects/index.qmd
       - text: CV
         href: cv/index.qmd
         #icon: file-earmark-person-fill
