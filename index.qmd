@@ -488,7 +488,8 @@ document.addEventListener('DOMContentLoaded', () => {
         point.y / 100,
         (height - point.y) / 150
       );
-      ctx.strokeStyle = `rgba(${point.color.r}, ${point.color.g}, ${point.color.b}, ${CONFIG.edgeOpacity * Math.max(0, edgeFade)})`;
+      // Use consistent edge color (deep teal) for all cells
+      ctx.strokeStyle = `rgba(13, 115, 119, ${CONFIG.edgeOpacity * Math.max(0, edgeFade)})`;
       ctx.stroke();
     }
 
