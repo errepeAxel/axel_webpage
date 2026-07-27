@@ -3,6 +3,7 @@ project:
 
 website:
   title: "Axel Rodríguez-Pérez"
+  site-url: https://axelrp.netlify.app # required for the blog RSS feed, sitemap.xml and absolute open-graph URLs
   favicon: adn_helix.png
   open-graph: true # https://quarto.org/docs/websites/website-tools.html#open-graph
   page-footer: "Made with ❤️ and Quarto"

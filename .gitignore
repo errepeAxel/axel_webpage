@@ -5,3 +5,5 @@
 /blog/third-post/data
 
 /.quarto/
+
+**/*.quarto_ipynb
