@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Axel Rodríguez-Pérez</title>
+<link>https://axelrp.netlify.app/blog/</link>
+<atom:link href="https://axelrp.netlify.app/blog/index.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.9.37</generator>
+<lastBuildDate>Sun, 26 Jul 2026 22:00:00 GMT</lastBuildDate>
+<item>
+  <title>Understanding Neighborhood Enrichment Analysis with Squidpy</title>
+  <dc:creator>Axel R</dc:creator>
+  <link>https://axelrp.netlify.app/blog/third-post/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<div class="callout callout-style-default callout-warning callout-titled" title="Work in progress">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Work in progress
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This site is still under development, so parts of it are rough. Check back for updates.</p>
+</div>
+</div>
+<section id="why-this-notebook" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Why this notebook</h1>
+<p>Spatial transcriptomics tells you where cells sit in a tissue, not only what they express. <a href="https://squidpy.readthedocs.io/en/stable/index.html">Squidpy</a> is one of the main Python libraries for analyzing that kind of data (the paper is <a href="https://www.nature.com/articles/s41592-021-01358-2">here</a>).</p>
+<p>This guide covers one function: <em>neighborhood enrichment analysis</em>. It scores which pairs of cell types end up next to each other more often than you would expect by chance, which is where you start when asking about cell-cell interactions in a tissue.</p>
+<p>The first time I ran it, I could not connect the output to anything biological. So I went digging into what the function computes, and this notebook is what came out of that.</p>
+<p>Suggestions and questions are welcome in the comments.</p>
+</section>
+<section id="download-the-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Download the data</h1>
+<p>Following the <a href="https://squidpy.readthedocs.io/en/stable/notebooks/tutorials/tutorial_xenium.html">Squidpy tutorial on analysis of Xenium data</a>, we use a <a href="https://www.10xgenomics.com/datasets/preview-data-ffpe-human-lung-cancer-with-xenium-multimodal-cell-segmentation-1-standard">Xenium dataset of human lung cancer</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="How to download this dataset">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How to download this dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Go to the dataset’s preview page.</li>
+<li>Under <strong>Output and supplemental files</strong>, download the <strong>Xenium Output Bundle</strong> (we use the full dataset).</li>
+<li>Unzip the downloaded file.</li>
+<li>Inside the unzipped folder, unzip all the <code>.zip</code> files as well.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Load libraries</span></span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> spatialdata <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> sd</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> spatialdata_io <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> xenium</span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb1-6"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> seaborn <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> sns</span>
+<span id="cb1-7"></span>
+<span id="cb1-8"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> scanpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> sc</span>
+<span id="cb1-9"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> squidpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> sq</span></code></pre></div></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/home/axel/miniconda3/envs/ne_analysis/lib/python3.12/site-packages/dask/dataframe/__init__.py:31: FutureWarning: The legacy Dask DataFrame implementation is deprecated and will be removed in a future version. Set the configuration option `dataframe.query-planning` to `True` or None to enable the new Dask Dataframe implementation and silence this warning.
+  warnings.warn(
+/home/axel/miniconda3/envs/ne_analysis/lib/python3.12/site-packages/xarray_schema/__init__.py:1: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools&lt;81.
+  from pkg_resources import DistributionNotFound, get_distribution
+/home/axel/miniconda3/envs/ne_analysis/lib/python3.12/site-packages/anndata/__init__.py:44: FutureWarning: Importing read_text from `anndata` is deprecated. Import anndata.io.read_text instead.
+  return module_get_attr_redirect(attr_name, deprecated_mapping=_DEPRECATED)</code></pre>
+</div>
+</div>
+<div id="cell-6" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pathlib <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Path</span>
+<span id="cb3-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> os</span>
+<span id="cb3-3">cwd <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path.cwd()</span>
+<span id="cb3-4">xenium_path <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> os.path.join(cwd, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"data"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Xenium"</span>)</span></code></pre></div></div>
+</div>
+
+
+</section>
+
+ ]]></description>
+  <category>Spatial Transcriptomics</category>
+  <category>Xenium</category>
+  <guid>https://axelrp.netlify.app/blog/third-post/</guid>
+  <pubDate>Sun, 26 Jul 2026 22:00:00 GMT</pubDate>
+  <media:content url="https://axelrp.netlify.app/blog/third-post/spatial_neigh.png" medium="image" type="image/png" height="112" width="144"/>
+</item>
+</channel>
+</rss>
