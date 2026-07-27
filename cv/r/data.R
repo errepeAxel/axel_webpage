@@ -4,7 +4,7 @@ library(dplyr)
 edu <- tribble(
   ~degree, ~startYear, ~endYear, ~inst, ~where, ~detail,
   "National Autonomous University of Mexico (UNAM)", 2021, 2025, "Bachelors in Science in Genomic Sciences", "Juriquilla, Qro, MX", "GPA: 3.52",
-  "National Autonomous University of Mexico (UNAM)", 2021, 2025, "Bachelors in Science in Genomic Sciences", "Juriquilla, Qro, MX", "Relevant Coursework: Calculus, Statististics, Linear Algebra, Molecular and Cell Biology, Statistical Models in Human Genetics, Human Genomics in Health and Disease, Cancer Genomics, Evolutionary Genomics, Bioinformatics and Statistics, Machine Learning Applications in Genomics."
+  "National Autonomous University of Mexico (UNAM)", 2021, 2025, "Bachelors in Science in Genomic Sciences", "Juriquilla, Qro, MX", "Relevant Coursework: Calculus, Statistics, Linear Algebra, Molecular and Cell Biology, Statistical Models in Human Genetics, Human Genomics in Health and Disease, Cancer Genomics, Evolutionary Genomics, Bioinformatics and Statistics, Machine Learning Applications in Genomics."
 )
 
 research <- tribble(
@@ -65,7 +65,7 @@ presentations <- tribble(
 teaching <- tribble(
   ~area, ~accomplishment, ~month ,~year, ~where, ~detail,
   "Invited Speaker", "5th Summer School: Introduction to Genomic Sciences, LIIGH-UNAM", "July", 2025, "Remotely", "Talk title: De genes, código y decisiones: lecciones sobre el inicio de una carrera científica",
-  "Invited Speaker", "5th Summer School: Introduction to Genomic Sciences, LIIGH-UNAM", "July", 2025, "Remotely", "Delivered am interactive talk as part of the “My Science and My Life” series.",
+  "Invited Speaker", "5th Summer School: Introduction to Genomic Sciences, LIIGH-UNAM", "July", 2025, "Remotely", "Delivered an interactive talk as part of the “My Science and My Life” series.",
   "Invited Speaker", "5th Summer School: Introduction to Genomic Sciences, LIIGH-UNAM", "July", 2025, "Remotely", "Shared personal trajectory and lessons for early-career students, combining genomics, coding, and career decision-making.",
   
   "Guest Instructor", "Undergraduate Program in Genomic Sciences, UNAM", "November", 2024, "Remotely", "Assisted in teaching 'Introduction to Single-Cell and Spatial Transcriptomics' lecture for third-semester undergraduate students.",

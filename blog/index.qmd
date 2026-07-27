@@ -9,4 +9,4 @@ listing:
 title-block-banner: true
 ---
 
-Hi there, and thanks for stopping by! This blog is where I share ideas, tools, and resources that I've found helpful and that I hope will be useful to you as well. I'd love to hear your thoughts, so feel free to drop your comments and perspectives in the comments section below each post.
+I write here about the tools and methods I'm learning my way through, mostly spatial transcriptomics and cancer genomics. If something is unclear or plain wrong, tell me in the comments under the post.

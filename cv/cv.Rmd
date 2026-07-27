@@ -47,7 +47,7 @@ edu %>%
 
 ```
 
--   Relevant Coursework: *Calculus*, *Statististics*, *Linear Algebra*, *Molecular and Cell Biology*, *Statistical Models in Human Genetics*, *Human Genomics in Health and Disease*, *Cancer Genomics*, *Evolutionary Genomics*, *Bioinformatics and Statistics*, *Machine Learning Applications in Genomics*.
+-   Relevant Coursework: *Calculus*, *Statistics*, *Linear Algebra*, *Molecular and Cell Biology*, *Statistical Models in Human Genetics*, *Human Genomics in Health and Disease*, *Cancer Genomics*, *Evolutionary Genomics*, *Bioinformatics and Statistics*, *Machine Learning Applications in Genomics*.
 
 # Research Experience
 
@@ -105,9 +105,9 @@ Supervisors: [Carla Daniela Robles Espinoza](https://orcid.org/0000-0003-3277-74
 
 -   Analyzed spatial proteomics data from acral lentiginous melanoma patient samples using GeoMx Digital Spatial Profiler (35 protein markers).
 -   Developed and benchmarked machine learning models (Random Forest, Logistic Regression) to predict ulceration status from tumor and TME regions.
--   Applied advanced preprocessing and cross-validation strategies, achieving high predictive accuracy (PR-AUC ≈ 0.98 in TME samples).
--   Identified immune-related markers (e.g., CD8, PD-1) as key predictors of ulceration, providing potential clinical insights.
--   Documented analyses in R and prepared a comprehensive technical report with reproducible workflows.
+-   Applied correlation filtering, PCA, and upsampling with 10-fold cross-validation (PR-AUC ≈ 0.98 in TME samples).
+-   Identified immune-related markers (e.g., CD8, PD-1) as the strongest predictors of ulceration.
+-   Documented analyses in R and prepared a technical report with reproducible workflows.
 -   Gained hands-on training in molecular biology techniques, including nucleic acid extraction, quantification, and agarose gel electrophoresis.
 -   Cultured mammalian cell lines (NIH 3T3, A375 melanoma): thawing, passaging, contamination detection, and cryopreservation.
 -   Performed bacterial transformation, plasmid amplification, and purification with quality control.
@@ -144,7 +144,7 @@ presentations %>%
 
 -   Presented research on applying machine learning (Random Forest, Logistic Regression, LASSO) to spatial proteomics data from Mexican acral melanoma patients.
 -   Discussed methodology (data preprocessing, feature selection, PCA, upsampling) and evaluation metrics (PR-AUC).
--   Highlighted potential clinical applications of computational models in melanoma prognosis.
+-   Discussed where such models could fit into melanoma prognosis in the clinic.
 
 # Teaching & Mentorship Experience
 
@@ -163,7 +163,7 @@ teaching %>%
 
 Talk title: _Genes, code, and decisions: lessons on starting a scientific career_.
 
--   Delivered am interactive talk as part of the “My Science and My Life” series.
+-   Delivered an interactive talk as part of the “My Science and My Life” series.
 -   Shared personal trajectory and lessons for early-career students, combining genomics, coding, and career decision-making.
 
 ```{r TEACHING}
@@ -179,7 +179,7 @@ teaching %>%
 ```
 
 -   Assisted in teaching "*Introduction to Single-Cell and Spatial Transcriptomics*" lecture for third-semester undergraduate students.
--   Clarified core concepts and addressed student questions to facilitate understanding.
+-   Clarified core concepts and answered student questions.
 
 ```{r TEACHING_V2}
 #IGNORE
@@ -240,4 +240,4 @@ skills %>%
   )
 
 ```
-My research interests lie at the intersection of computational biology and cancer genomics, with a particular focus on spatial and single-cell omics. I aim to develop and apply statistical and machine learning approaches to study cellular heterogeneity, tumor–microenvironment interactions, and therapy response. I am also interested in building scalable, reproducible workflows for multi-omics data analysis in high-performance computing environments.
+I work on computational biology and cancer genomics, mostly with spatial and single-cell omics. My aim is to apply statistical and machine learning methods to cellular heterogeneity and to how tumors and their microenvironment respond to therapy. I also build reproducible multi-omics workflows that scale on high-performance computing systems.
